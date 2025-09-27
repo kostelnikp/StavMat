@@ -1,0 +1,99 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_project.css' %}">
+
+{% endblock %}
+
+{% block body %}
+    {% if user.groups.all %}
+        {% for group in user.groups.all %}
+            {% if group.name == 'Zamestnanec' %}
+                <div class="container section">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-head">
+                                <h4 class="card-title">Informácie o prácach</h4>
+                            </div>
+                            {% for p in prace %}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{ p.typ }}
+                                        </h5>
+                                        <p class="card-text">
+                                            {{ p.datum_ukoncenia }}
+                                        </p>
+                                        <p class="card-text">
+                                            {{ p.popis }}
+                                        </p>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a class="btn" type="submit" href="{% url 'work_info' p.pk %}">Zobraziť
+                                                    detaily</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if group.name == 'Hlavný zamestnanec' or group.name == 'Vedúci podniku' %}
+                <div class="container section">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-head">
+                                <h4 class="card-title">Správa prácí</h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="btn" type="submit" href="{% url 'create_work' %}">Pridať
+                                            prácu</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                        <li class="{{ message.tags }}">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            {% for p in prace %}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{ p.typ }}
+                                        </h5>
+                                        <p class="card-text">
+                                            {{ p.popis_prace }}
+                                        </p>
+                                        <p class="card-text">
+                                            Dátum začiatku: {{ p.datum_zaciatku }} <br> Dátum ukončenia:
+                                            {% if p.datum_ukoncenia is not None %}
+                                                {{ p.datum_ukoncenia }}
+                                            {% else %}
+                                                ----
+                                            {% endif %}
+                                        </p>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a class="btn" type="submit" href="{% url 'work_info' p.pk %}">Zobraziť
+                                                    detaily</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+

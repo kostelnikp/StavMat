@@ -1,0 +1,61 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_project.css' %}">
+
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-head">
+                    <h4 class="card-title">Správa faktúr</h4>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn" type="submit" href="{% url 'create_faktura' %}">Pridať
+                                faktúru</a>
+                        </div>
+                    </div>
+                </div>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% for f in faktura %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ f.projekt.nazov }}
+                            </h5>
+
+                            <p class="card-text">
+                                Dátum vystavenia: {{ f.datum_vystavenia }}
+                                <br>
+                                Dátum splatnosti:
+                                {% if f.datum_splatnosti is not None %}
+                                    {{ f.datum_splatnosti }}
+                                {% else %}
+                                    ----
+                                {% endif %}
+                            </p>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn" type="submit" href="{% url 'faktura_info' f.pk%}">Zobraziť
+                                        detaily</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

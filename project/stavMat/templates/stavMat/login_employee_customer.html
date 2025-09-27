@@ -1,0 +1,62 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_project.css' %}">
+
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-head">
+                    <h4 class="card-title">Informácie o zákazníkoch</h4>
+
+                </div>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% for z in zakaznik %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ z.meno }} {{ z.priezvisko }}
+                            </h5>
+                            <p class="card-text">
+                                {{ z.email }}
+                                <br>
+                                {{ z.telefon }}
+                            </p>
+
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn" type="submit" href="{% url 'customer_info' z.pk %}">Zobraziť
+                                        detaily</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .btn-delete {
+            margin: 10px 0 15px 0;
+            background-color: #ff1d1d;
+            color: #F0F7EE;
+        }
+
+        .btn-delete:hover, .btn-delete:active:focus {
+            background-color: #bd2323;
+            color: #FFFFFD;
+        }
+    </style>
+{% endblock %}

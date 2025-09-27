@@ -1,0 +1,97 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'project_info.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informácie o práci</h4>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p><span class="p-bold">Typ:</span> {{ praca.typ }}</p>
+                <p><span class="p-bold">Dátum začiatku:</span> {{ praca.datum_zaciatku }}</p>
+                {% if praca.datum_ukoncenia is None %}
+                    <p><span class="p-bold">Dátum ukončenia:</span> ------</p>
+                {% else %}
+                    <p><span class="p-bold">Dátum ukončenia:</span> {{ praca.datum_ukoncenia }}</p>
+                {% endif %}
+                <p><span class="p-bold">Popis práce:</span> {{ praca.popis_prace }}</p>
+                <p><span class="p-bold">Náklady:</span> {{ praca.naklady }}</p>
+                <p><span class="p-bold">Projekt:</span> {{ praca.projekt }}</p>
+
+                <h4 class="card-title">Informácie o použitých materiáloch</h4>
+                {% for m in pouzity_material %}
+                    <div class="work_align">
+                        <div class="col">
+                            <p><span class="p-bold">Materiál:</span> {{ m.material }}</p>
+                            <p><span class="p-bold">Množstvo:</span> {{ m.mnozstvo }}</p>
+                            <p><span class="p-bold">Jednotková cena:</span> {{ m.jednotkova_cena }}</p>
+                        </div>
+                        <div class="col col-btn">
+                            <a class="btn btn-delete" href="{% url 'delete_material' praca.pk m.pk %}">Odstrániť</a>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col">
+                        {% if user.groups.all %}
+                            {% for group in user.groups.all %}
+                                {% if group.name == 'Zamestnanec' %}
+                                    <a class="btn" type="submit" href="{% url 'employee_work' %}">Vrátiť sa naspäť</a>
+                                {% else %}
+                                    <a class="btn" type="submit" href="{% url 'work_edit' praca.pk %}">Zmeniť
+                                        informácie</a>
+                                    <a class="btn" type="submit" href="{% url 'work_edit_materials' praca.pk %}">Pridať
+                                        použité materiály</a>
+                                    <a class="btn" type="submit" href="{% url 'employee_work' %}">Vrátiť sa naspäť</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .work_align {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-delete {
+            margin: 10px 0 15px 0;
+            padding: 10px;
+            background-color: #ff1d1d;
+            color: #F0F7EE;
+            font-size: 12px;
+            width: 50%;
+            border-radius: 15px 5px 15px 5px;
+        }
+
+        .btn-delete:hover, .btn-delete:active:focus {
+            background-color: #bd2323;
+            color: #FFFFFD;
+        }
+
+        .col-btn {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+
+    </style>
+{% endblock %}

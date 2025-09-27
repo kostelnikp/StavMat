@@ -1,0 +1,52 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+
+{% block body %}
+
+    <div class="container section_img">
+        <img src="{% static 'resources/LandingPage.jpg' %}">
+        <div class="section_center_text">
+            <h3>Vitajte v stavebnej firme StavMat</h3>
+        </div>
+    </div>
+
+    <div class="container article">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card">
+                    <img src="{% static 'resources/construction.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Profesionálna Stavebná Služba</h5>
+                        <p class="card-text">Ponúkame širokú škálu stavebných služieb pre vaše projekty. Od
+                            rekonštrukcií až
+                            po novostavby, sme tu, aby sme vám pomohli realizovať vaše vízie.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <img src="{% static 'resources/construction_materials.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Kvalitné Stavebné Materiály</h5>
+                        <p class="card-text">Zabezpečujeme len najvyššiu kvalitu stavebných materiálov pre vaše
+                            projekty. S
+                            našimi materiálmi môžete byť istí trvácnosťou a spoľahlivosťou.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <img src="{% static 'resources/construction_proffesionals.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Odborníci na Renovácie</h5>
+                        <p class="card-text"> Sme špecializovaní na renovácie a revitalizácie. Nech už je váš projekt
+                            veľký
+                            alebo malý, máme skúsenosti a znalosti na to, aby sme ho dokončili úspešne.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

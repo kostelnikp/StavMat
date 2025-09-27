@@ -1,0 +1,76 @@
+.btn {
+    margin: 0 0 15px 0;
+    padding: 15px;
+    background-color: #BDAB23;
+    color: #F0F7EE;
+    font-size: 15px;
+    width: 100%;
+    border-radius: 15px 5px 15px 5px;
+}
+
+.btn:hover, .btn:active:focus {
+    background-color: #432818;
+    color: #FFFFFD;
+}
+
+.messages{
+    padding: 0;
+    margin: 0;
+}
+
+.messages li, .errorlist li {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    list-style-type: none;
+}
+
+.messages .error, .errorlist li {
+    background-color: #FFCDD2;
+    color: #D32F2F;
+}
+
+.messages .success {
+    background-color: #C8E6C9;
+    color: #2E7D32;
+}
+
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #BDAB23;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    height: 100px;
+}

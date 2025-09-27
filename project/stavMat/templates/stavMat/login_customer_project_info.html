@@ -1,0 +1,59 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'project_info.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informácie o projekte</h4>
+                <p><span class="p-bold">Názov:</span> {{ projekt.nazov }}</p>
+                <p><span class="p-bold">Popis:</span> {{ projekt.popis }}</p>
+                <p><span class="p-bold">Adresa:</span> {{ projekt.adresa }}</p>
+                <p><span class="p-bold">PSČ:</span> {{ projekt.psc }}</p>
+                <p><span class="p-bold">Mesto:</span> {{ projekt.mesto }}</p>
+                <p><span class="p-bold">Štát:</span> {{ projekt.stat }}</p>
+                <p><span class="p-bold">Dátum začiatku:</span> {{ projekt.datum_zaciatku }}</p>
+                {% if projekt.datum_ukoncenia is None %}
+                    <p><span class="p-bold">Dátum ukončenia:</span> ------</p>
+                {% else %}
+                    <p><span class="p-bold">Dátum ukončenia:</span> {{ projekt.datum_ukoncenia }}</p>
+                {% endif %}
+
+                {% if projekt.stav == 'U' %}
+                    <p><span class="p-bold">Stav:</span> Ukončený</p>
+                {% else %}
+                    <p><span class="p-bold">Stav:</span> Neukončený</p>
+                {% endif %}
+                <p><span class="p-bold">Celkový rozpočet:</span> {{ projekt.celkovy_rozpocet }}</p>
+
+
+                <div class="row">
+                    <div class="col">
+                        {% if user.is_authenticated %}
+                            {% if user.groups.all %}
+                                {% for group in user.groups.all %}
+                                    {% if group.name == 'Zákazník' %}
+                                        <a class="btn" type="submit" href="{% url 'project_edit' projekt.pk %}">Zmeniť
+                                            informácie</a>
+                                        <a class="btn" type="submit" href="{% url 'user_project' %}">Vrátiť sa
+                                            naspäť</a>
+                                    {% endif %}
+                                    {% if group.name == 'Vedúci podniku' %}
+                                        <a class="btn" type="submit" href="{% url 'customer_info' zakaznik.pk%}">Vrátiť sa
+                                            naspäť</a>
+                                    {% endif %}
+
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

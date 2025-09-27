@@ -1,0 +1,50 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_project.css' %}">
+
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-head">
+                    <h4 class="card-title">Info o projektoch</h4>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn" type="submit" href="{% url 'create_project' %}">Pridať projekt</a>
+                        </div>
+                    </div>
+                </div>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% for p in projekty %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ p.nazov }}
+                            </h5>
+                            <p class="card-text">
+                                {{ p.popis }}
+                            </p>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn" type="submit" href="{% url 'project_info' p.pk %}">Zobraziť
+                                        detaily</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

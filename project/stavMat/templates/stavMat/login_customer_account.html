@@ -1,0 +1,45 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'project_info.css' %}">
+    <link href="{% static 'form_base.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informácie o zákazníkovi</h4>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p><span class="p-bold">Meno:</span> {{ zakaznik.meno }}</p>
+                <p><span class="p-bold">Priezvisko:</span> {{ zakaznik.priezvisko }}</p>
+                <p><span class="p-bold">Email:</span> {{ zakaznik.email }}</p>
+                <p><span class="p-bold">Telefónne číslo:</span> {{ zakaznik.telefon }}</p>
+                {% if zakaznik.typ_osoby == 'F' %}
+                    <p><span class="p-bold">Typ osoby:</span> Fyzická</p>
+                {% else %}
+                    <p><span class="p-bold">Typ osoby:</span> Právnická</p>
+                {% endif %}
+
+                {% if zakaznik.typ_osoby == 'P' %}
+                    <p><span class="p-bold">Názov firmy:</span> {{ zakaznik.nazov_firmy }}</p>
+                    <p><span class="p-bold">IČO:</span> {{ zakaznik.ico }}</p>
+                    <p><span class="p-bold">DIČ:</span> {{ zakaznik.dic }}</p>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col">
+                        <a class="btn" type="submit" href="{% url 'edit_account' %}">Zmeniť údaje</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

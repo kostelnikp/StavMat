@@ -1,0 +1,96 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_project.css' %}">
+
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-head">
+                    <h4 class="card-title">Informácie o zamestnanoch</h4>
+                    {% if user.is_authenticated %}
+                        {% if user.groups.all %}
+                            {% for group in user.groups.all %}
+                                {% if group.name == 'Vedúci podniku' %}
+                                    <div class="row">
+                                        <div class="col">
+                                            <a class="btn" type="submit" href="{% url 'create_employee' %}">Pridať
+                                                zamestnanca</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% for z in zamestnanec %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ z.meno }} {{ z.priezvisko }}
+                            </h5>
+                            <p class="card-text">
+                                {{ z.email }}
+                                <br>
+                                {% if z.role == 'Z' %}
+                                    Zamestnanec
+                                {% elif z.role == 'H' %}
+                                    Hlavný zamestnanec
+                                {% elif z.role == 'V' %}
+                                    Vedúci podniku
+                                {% endif %}
+                            </p>
+                            <div class="row">
+                                <div class="col">
+                                    {% if user.is_authenticated %}
+                                        {% if user.groups.all %}
+                                            {% for group in user.groups.all %}
+                                                {% if group.name == 'Vedúci podniku' %}
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <a class="btn btn-delete" type="submit"
+                                                               href="{% url 'delete_employee' z.pk%}">Odstrániť
+                                                                zamestnanca</a>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endif %}
+                                    <a class="btn" type="submit" href="{% url 'employee_info' z.pk %}">Zobraziť
+                                        detaily</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <style>
+     .btn-delete {
+            margin: 10px 0 15px 0;
+            background-color: #ff1d1d;
+            color: #F0F7EE;
+        }
+
+        .btn-delete:hover, .btn-delete:active:focus {
+            background-color: #bd2323;
+            color: #FFFFFD;
+        }
+    </style>
+{% endblock %}

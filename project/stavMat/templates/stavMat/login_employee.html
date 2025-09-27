@@ -1,0 +1,36 @@
+{% extends "stavMat/index.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'form_base.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block title %}
+    <h4>Zadajte vaše prihlasovacie meno a heslo</h4>
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'login_employee_form' %}" method="post">{% csrf_token %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="row mb-4">
+            {{ login_form.as_p }}
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button class="btn" type="submit">Prihlásiť sa</button>
+            </div>
+        </div>
+    </form>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,12 @@
+.section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 45px;
+    max-width: 75vh;
+}
+
+.card-title {
+    padding: 10px 0 35px 0;
+}
+

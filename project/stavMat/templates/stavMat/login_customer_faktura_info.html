@@ -1,0 +1,31 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'project_info.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informácie o faktúre</h4>
+                <p><span class="p-bold">Názov projektu:</span> {{ faktura.projekt.nazov }}</p>
+                <p><span class="p-bold">Zákazník:</span> {{ faktura.projekt.zakaznik }}</p>
+                <p><span class="p-bold">Dátum vystavenia:</span> {{ faktura.datum_vystavenia }}</p>
+                <p><span class="p-bold">Dátum splatnosti:</span> {{ faktura.datum_splatnosti }}</p>
+                <p><span class="p-bold">Suma:</span> {{ faktura.suma }}</p>
+                {% if faktura.stav_platby == 'U' %}
+                    <p><span class="p-bold">Stav platby:</span> Uhradená </p>
+                {% else %}
+                    <p><span class="p-bold">Stav platby:</span> Neuhradená </p>
+                {% endif %}
+                <div class="row">
+                    <div class="col">
+                        <a class="btn" type="submit" href="{% url 'user_faktura' %}">Vrátiť sa naspäť</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

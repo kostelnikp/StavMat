@@ -1,0 +1,31 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'register_customer.css' %}" rel="stylesheet">
+    <link href="{% static 'form_base.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Zmena informácii o práci</h4>
+                <form action="{% url 'work_edit' praca.pk %}" method="post">{% csrf_token %}
+
+                    <div class="row mb-4">
+                        {{ praca_form.as_p }}
+                    </div>
+                    <button class="btn" type="submit">Uložiť</button>
+                </form>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn" type="submit" href="{% url 'employee_work' %}">Vrátiť sa naspäť</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

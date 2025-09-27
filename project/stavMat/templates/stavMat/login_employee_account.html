@@ -1,0 +1,48 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'project_info.css' %}">
+    <link href="{% static 'form_base.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Informácie o zamestnancovi</h4>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p><span class="p-bold">Meno:</span> {{ zamestnanec.meno }}</p>
+                <p><span class="p-bold">Priezvisko:</span> {{ zamestnanec.priezvisko }}</p>
+                <p><span class="p-bold">Email:</span> {{ zamestnanec.email }}</p>
+                <p><span class="p-bold">Telefónne číslo:</span> {{ zamestnanec.telefon }}</p>
+                <p><span class="p-bold">Adresa bydliska:</span> {{ zamestnanec.adresa_bydliska }}</p>
+                <p><span class="p-bold">PSČ:</span> {{ zamestnanec.psc }}</p>
+                <p><span class="p-bold">Mesto bydliska:</span> {{ zamestnanec.mesto_bydliska }}</p>
+                <p><span class="p-bold">Štát bydliska:</span> {{ zamestnanec.stat_bydliska }}</p>
+                <p><span class="p-bold">Dátum nástupu:</span> {{ zamestnanec.datum_nastupu }}</p>
+                <p><span class="p-bold">Kvalifikácie:</span> {{ zamestnanec.kvalifikacie }}</p>
+
+                {% if zamestnanec.role == 'V' %}
+                    <p><span class="p-bold">Rola:</span> Vedúci podniku</p>
+                {% elif zamestnanec.role == 'H' %}
+                    <p><span class="p-bold">Rola:</span> Hlavný zamestnanec</p>
+                {% else %}
+                    <p><span class="p-bold">Rola:</span> Zamestnanec</p>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col">
+                        <a class="btn" type="submit" href="{% url 'edit_employee_account' %}">Zmeniť údaje</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

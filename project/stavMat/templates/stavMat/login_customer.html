@@ -1,0 +1,35 @@
+{% extends "stavMat/base_customer.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'login_customer.css' %}" rel="stylesheet">
+    <link href="{% static 'form_base.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container section">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Prihlásenie zákazníka</h4>
+                <form action="{% url 'login_customer_form' %}" method="post">{% csrf_token %}
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li class="{{ message.tags }}">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <div class="row mb-4">
+                        {{ login_form.as_p }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn" type="submit">Prihlásiť sa</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
