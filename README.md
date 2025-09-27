@@ -49,7 +49,7 @@ python manage.py runserver
  - Use the superuser credentials you created.
  - From here you can fully manage materials, customers, employees, and invoices.
 
-## 📸 API Communication
+## 📸 Screenshots
 
 ### Homepage
 ![Homepage](/Screenshots/Homepage.jpg?raw=true "Homepage")
